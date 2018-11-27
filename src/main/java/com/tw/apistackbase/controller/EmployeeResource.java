@@ -24,6 +24,15 @@ public class EmployeeResource {
         return boss.getEmployeeList();
     }
 
+    @GetMapping(path = "/{id}", produces = {"application/json"})
+    public @ResponseBody Employee get(@PathVariable int id) {
+        try {
+            return boss.getEmployeeByID(id);
+        } catch (RuntimeException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
+    }
+
     @PostMapping()
     public Employee add(@RequestBody Employee newEmployee) {
         newEmployee.id = boss.getNextID();
@@ -33,7 +42,12 @@ public class EmployeeResource {
 
     @DeleteMapping(path = "/{id}")
     public String delete(@PathVariable int id) {
-        return boss.removeEmployee(id) ? "Employee removed successfully." : "No such employee";
+        try {
+            boss.removeEmployee(id);
+            return "Employee removed successfully.";
+        } catch (RuntimeException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
     }
 
     @PutMapping(path = "/{id}")
@@ -44,4 +58,6 @@ public class EmployeeResource {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
         }
     }
+
+
 }

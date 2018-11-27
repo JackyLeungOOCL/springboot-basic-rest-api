@@ -20,19 +20,14 @@ public class Boss {
         nextID++;
     }
 
-    public boolean removeEmployee(int id) {
-        Employee employee = getEmployeeByID(id);
-        return employee == null ? false : employeeList.remove(employee);
-
+    public void removeEmployee(int id) {
+        employeeList.remove(getEmployeeByID(id));
     }
 
     public Employee changeEmployee(int id, Employee newEmployee) {
         Employee originalEmployee = getEmployeeByID(id);
-        if (originalEmployee == null) {
-            throw new RuntimeException("No such employee id.");
-        }
-        employeeList.remove(originalEmployee);
         employeeList.add(mergeEmployeeValues(originalEmployee, newEmployee));
+        employeeList.remove(originalEmployee);
         return newEmployee;
     }
 
@@ -44,13 +39,13 @@ public class Boss {
         return nextID;
     }
 
-    private Employee getEmployeeByID(int id) {
+    public Employee getEmployeeByID(int id) {
         for (Employee employee : employeeList) {
             if (employee.id == id) {
                 return employee;
             }
         }
-        return null;
+        throw new RuntimeException("No such employee id.");
     }
 
     private Employee mergeEmployeeValues(Employee originalEmployee, Employee newEmployee) {
