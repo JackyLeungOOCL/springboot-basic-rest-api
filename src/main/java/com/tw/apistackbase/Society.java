@@ -47,4 +47,18 @@ public class Society {
     public int getNextID() {
         return nextID;
     }
+
+    public Company changeCompany(int id, Company newCompany) {
+        Company originalCompany = getCompanyByID(id);
+        companyList.add(mergeEmployeeValues(originalCompany, newCompany));
+        companyList.remove(originalCompany);
+        return newCompany;
+    }
+
+    private Company mergeEmployeeValues(Company originalCompany, Company newCompany) {
+        newCompany.id = originalCompany.id;
+        return newCompany;
+    }
+
+
 }

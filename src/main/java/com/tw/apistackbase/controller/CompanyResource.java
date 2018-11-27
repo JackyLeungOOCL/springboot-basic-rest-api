@@ -50,5 +50,14 @@ public class CompanyResource {
         return newCompany;
     }
 
+    @PutMapping(path = "/{id}")
+    public Company change(@PathVariable int id, @RequestBody Company newCompany) {
+        try {
+            return society.changeCompany(id, newCompany);
+        } catch (RuntimeException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
+    }
+
 
 }
