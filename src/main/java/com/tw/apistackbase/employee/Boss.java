@@ -20,12 +20,9 @@ public class Boss {
         nextID++;
     }
 
-    public boolean removeEmployee(Employee employee) {
-        if (employeeList.contains(employee)) {
-            return false;
-        }
-        employeeList.remove(employee);
-        return true;
+    public boolean removeEmployee(int id) {
+        Employee employee = getEmployeeByID(id);
+        return employee == null ? false : employeeList.remove(employee);
 
     }
 
@@ -35,5 +32,14 @@ public class Boss {
 
     public int getNextID() {
         return nextID;
+    }
+
+    private Employee getEmployeeByID(int id) {
+        for (Employee employee : employeeList) {
+            if (employee.id == id) {
+                return employee;
+            }
+        }
+        return null;
     }
 }

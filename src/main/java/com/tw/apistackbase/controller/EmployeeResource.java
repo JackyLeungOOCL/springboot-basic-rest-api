@@ -28,4 +28,9 @@ public class EmployeeResource {
         boss.addEmployee(newEmployee);
         return newEmployee;
     }
+
+    @DeleteMapping(path = "/Employee/{id}")
+    public String delete(@PathVariable int id) {
+        return boss.removeEmployee(id) ? "Employee removed successfully." : "No such employee";
+    }
 }
