@@ -26,6 +26,16 @@ public class Boss {
 
     }
 
+    public Employee changeEmployee(int id, Employee newEmployee) {
+        Employee originalEmployee = getEmployeeByID(id);
+        if (originalEmployee == null) {
+            throw new RuntimeException("No such employee id.");
+        }
+        employeeList.remove(originalEmployee);
+        employeeList.add(mergeEmployeeValues(originalEmployee, newEmployee));
+        return newEmployee;
+    }
+
     public List<Employee> getEmployeeList() {
         return employeeList;
     }
@@ -41,5 +51,10 @@ public class Boss {
             }
         }
         return null;
+    }
+
+    private Employee mergeEmployeeValues(Employee originalEmployee, Employee newEmployee) {
+        newEmployee.id = originalEmployee.id;
+        return newEmployee;
     }
 }
