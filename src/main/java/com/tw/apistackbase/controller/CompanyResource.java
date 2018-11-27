@@ -59,5 +59,13 @@ public class CompanyResource {
         }
     }
 
-
+    @DeleteMapping(path = "/{id}")
+    public String delete(@PathVariable int id) {
+        try {
+            society.removeCompany(id);
+            return "Employee removed successfully.";
+        } catch (RuntimeException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
+        }
+    }
 }

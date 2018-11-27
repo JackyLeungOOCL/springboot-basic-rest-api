@@ -15,9 +15,6 @@ public class Society {
 
     public Society() {
         companyList = new ArrayList<>();
-        companyList.add(new Company());
-        companyList.add(new Company());
-        companyList.add(new Company());
         nextID = 0;
     }
 
@@ -60,5 +57,8 @@ public class Society {
         return newCompany;
     }
 
+    public void removeCompany(int id) {
+        companyList.remove(getCompanyByID(id));
+    }
 
 }
