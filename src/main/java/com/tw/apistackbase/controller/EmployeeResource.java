@@ -19,24 +19,24 @@ public class EmployeeResource {
         this.boss = boss;
     }
 
-    @GetMapping(path = "/AllEmployees", produces = {"application/json"})
+    @GetMapping(produces = {"application/json"})
     public @ResponseBody List<Employee> getAll() {
         return boss.getEmployeeList();
     }
 
-    @PostMapping(path = "/Employee")
+    @PostMapping()
     public Employee add(@RequestBody Employee newEmployee) {
         newEmployee.id = boss.getNextID();
         boss.addEmployee(newEmployee);
         return newEmployee;
     }
 
-    @DeleteMapping(path = "/Employee/{id}")
+    @DeleteMapping(path = "/{id}")
     public String delete(@PathVariable int id) {
         return boss.removeEmployee(id) ? "Employee removed successfully." : "No such employee";
     }
 
-    @PutMapping(path = "/Employee/{id}")
+    @PutMapping(path = "/{id}")
     public Employee change(@PathVariable int id, @RequestBody Employee newEmployee) {
         try {
             return boss.changeEmployee(id, newEmployee);
