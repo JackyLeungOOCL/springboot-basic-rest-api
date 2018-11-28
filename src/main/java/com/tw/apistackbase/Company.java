@@ -33,11 +33,11 @@ public class Company {
     }
 
     public void removeEmployee(int id) {
-        employees.remove(getEmployeeByID(id));
+        employees.remove(getEmployeesByID(id));
     }
 
     public Employee changeEmployee(int id, Employee newEmployee) {
-        Employee originalEmployee = getEmployeeByID(id);
+        Employee originalEmployee = getEmployeesByID(id);
         employees.add(mergeEmployeeValues(originalEmployee, newEmployee));
         employees.remove(originalEmployee);
         return newEmployee;
@@ -51,7 +51,19 @@ public class Company {
         return nextID;
     }
 
-    public Employee getEmployeeByID(int id) {
+    public List<Employee> getEmployeesByPage(int page, int pageSize) {
+        int startIndex = (page - 1) * pageSize;
+        int endIndex = startIndex + pageSize;
+        if (startIndex >= employees.size()) {
+            return null;
+        }
+        if (endIndex >= employees.size()) {
+            endIndex = employees.size() - 1;
+        }
+        return employees.subList(startIndex, endIndex);
+    }
+
+    public Employee getEmployeesByID(int id) {
         for (Employee employee : employees) {
             if (employee.id == id) {
                 return employee;

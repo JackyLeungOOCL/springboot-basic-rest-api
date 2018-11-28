@@ -17,15 +17,20 @@ public class EmployeeResource {
         this.company = company;
     }
 
-    @GetMapping(produces = {"application/json"})
+    @GetMapping(produces = {"application/json"}, params = {})
     public @ResponseBody List<Employee> getAll() {
         return company.getEmployees();
+    }
+
+    @GetMapping(produces = {"application/json"}, params = {"page", "pageSize"})
+    public @ResponseBody List<Employee> getByPage(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "pageSize", required = false) int pageSize) {
+        return company.getEmployeesByPage(page, pageSize);
     }
 
     @GetMapping(path = "/{id}", produces = {"application/json"})
     public @ResponseBody Employee get(@PathVariable int id) {
         try {
-            return company.getEmployeeByID(id);
+            return company.getEmployeesByID(id);
         } catch (RuntimeException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
         }
