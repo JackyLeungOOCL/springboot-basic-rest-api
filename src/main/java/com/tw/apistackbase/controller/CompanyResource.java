@@ -21,11 +21,11 @@ public class CompanyResource {
     }
 
     @GetMapping(produces = {"application/json"}, params={})
-    public @ResponseBody List<Company> getAll() {
+    public List<Company> getAll() {
         return society.getCompanyList();
     }
     @GetMapping(produces = {"application/json"}, params = {"page", "pageSize"})
-    public @ResponseBody List<Company> getByPage(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "pageSize", required = false) int pageSize) {
+    public List<Company> getByPage(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "pageSize", required = false) int pageSize) {
         return society.getCompanyListByPage(page, pageSize);
     }
 

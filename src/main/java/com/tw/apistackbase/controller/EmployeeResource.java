@@ -18,22 +18,22 @@ public class EmployeeResource {
     }
 
     @GetMapping(produces = {"application/json"}, params = {})
-    public @ResponseBody List<Employee> getAll() {
+    public List<Employee> getAll() {
         return company.getEmployees();
     }
 
     @GetMapping(produces = {"application/json"}, params = {"page", "pageSize"})
-    public @ResponseBody List<Employee> getByPage(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "pageSize", required = false) int pageSize) {
+    public List<Employee> getByPage(@RequestParam(value = "page", required = false) int page, @RequestParam(value = "pageSize", required = false) int pageSize) {
         return company.getEmployeesByPage(page, pageSize);
     }
 
     @GetMapping(produces = {"application/json"}, params = {"gender"})
-    public @ResponseBody List<Employee> getByGender(@RequestParam("gender") String gender) {
+    public List<Employee> getByGender(@RequestParam("gender") String gender) {
         return company.getEmployeesByGender(gender);
     }
 
     @GetMapping(path = "/{id}", produces = {"application/json"})
-    public @ResponseBody Employee get(@PathVariable int id) {
+    public Employee get(@PathVariable int id) {
         try {
             return company.getEmployeesByID(id);
         } catch (RuntimeException exception) {
@@ -66,6 +66,4 @@ public class EmployeeResource {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage(), exception);
         }
     }
-
-
 }
