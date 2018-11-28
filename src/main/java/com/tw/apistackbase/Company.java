@@ -76,4 +76,14 @@ public class Company {
         newEmployee.id = originalEmployee.id;
         return newEmployee;
     }
+
+    public List<Employee> getEmployeesByGender(String gender) {
+        List<Employee> result = new ArrayList<>();
+        for (Employee employee : employees) {
+            if (employee.gender.equals(gender)) {
+                result.add(employee);
+            }
+        }
+        return result;
+    }
 }

@@ -27,6 +27,11 @@ public class EmployeeResource {
         return company.getEmployeesByPage(page, pageSize);
     }
 
+    @GetMapping(produces = {"application/json"}, params = {"gender"})
+    public @ResponseBody List<Employee> getByGender(@RequestParam("gender") String gender) {
+        return company.getEmployeesByGender(gender);
+    }
+
     @GetMapping(path = "/{id}", produces = {"application/json"})
     public @ResponseBody Employee get(@PathVariable int id) {
         try {
