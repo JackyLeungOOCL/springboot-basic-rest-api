@@ -3,6 +3,7 @@ package com.tw.apistackbase;
 import com.tw.apistackbase.controller.CompanyResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.reflect.annotation.ExceptionProxy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,18 @@ public class Society {
 
     public List<Company> getCompanyList() {
         return companyList;
+    }
+
+    public List<Company> getCompanyListByPage(int page, int pageSize) {
+        int startIndex = (page - 1) * pageSize;
+        int endIndex = startIndex + pageSize;
+        if (startIndex >= companyList.size()) {
+            return null;
+        }
+        if (endIndex >= companyList.size()) {
+            endIndex = companyList.size() - 1;
+        }
+        return companyList.subList(startIndex, endIndex);
     }
 
     public Company getCompanyByID(int id) {
